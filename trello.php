@@ -40,7 +40,7 @@ function adiciona_card($dados,$key,$token,$idList,$setor) {
             $desc_card = descricao_qualidade_refidelizacao($dados);
             break;
         case 'qualidade_csat_voz':
-            $titulo_card = urlencode($dados['contrato']['nom_cliente']. ' - Nota: '. $dados['nota']);
+            $titulo_card = urlencode($dados['avaliador']. ' - Nota: '. $dados['nota']);
             $desc_card = descricao_qualidade_csat_voz($dados);
             break;
     }

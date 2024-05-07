@@ -372,7 +372,7 @@ function busca_os($id, $limit) {
 
 function busca_csat_voz(){
 	include('conexao.php');
-	$sql="SELECT * FROM pesquisa WHERE p2 <= 2 AND p2 <> 0 and DATA between date_add(NOW(), INTERVAL - 60000 minute) AND date_add(NOW(), INTERVAL - 1 MINUTE); ";
+	$sql="SELECT * FROM pesquisa WHERE p2 <= 2 AND p2 <> 0 and DATA between date_add(NOW(), INTERVAL - 6 minute) AND date_add(NOW(), INTERVAL - 1 MINUTE); ";
     $result = $conn->query($sql);
 
     return $result;
