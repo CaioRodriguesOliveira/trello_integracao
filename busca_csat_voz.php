@@ -20,7 +20,7 @@ echo "<pre>";
             
             $dados['data'] = $row['data'];
             $dados['avaliador'] = $row['avaliador'];
-            $dados['Solicitação Atendida?'] = ($row['p1'] == 1) ? "Não" : "Sim";
+            $dados['Solicitação Atendida?'] = ($row['p1'] == 1) ? "Sim" : "Não";
             $dados['Tipo'] = $row['tipo'];
        
             $dados['dados_busca'] = busca_atendimentos_csatv($dados['avaliador'],$dados['data'] );

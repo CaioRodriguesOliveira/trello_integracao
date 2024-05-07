@@ -387,14 +387,14 @@ function busca_atendimentos_csatv($fone,$data) {
         WHERE date(dat_fechamento)=DATE('$data') and  REPLACE(REPLACE(REPLACE(REPLACE(ca.num_telefone,'(',''),')',''),'-',''),'-','') like concat('%',REPLACE(REPLACE(REPLACE(REPLACE($fone,'(',''),')',''),'-',''),'-',''),'%')
         ORDER BY dat_fechamento DESC;";
 
-#echo $sql;	
+        #echo $sql;	
         $result = $conn->query($sql);
         
         while ($row = $result->fetch_assoc()) {
                 $dados[] = $row;
         }
 
-#print_r($dados);
+        #print_r($dados);
         return $dados;
 }
 
