@@ -34,6 +34,10 @@ function adiciona_card($dados,$key,$token,$idList,$setor) {
             $titulo_card = urlencode($dados['han_chamado'].' - '.$dados['nom_cliente']. ' - Franquia: '. $dados['nom_sigla']);
             $desc_card = descricao_qualidade_refidelizacao($dados);
             break;
+        case 'qualidade_csat_voz':
+            $titulo_card = urlencode($dados['contrato']['nom_cliente']. ' - Nota: '. $dados['nota']);
+            $desc_card = descricao_qualidade_csat_voz($dados);
+            break;
     }
 	
     $url = "https://api.trello.com/1/cards?key=".$key."&token=".$token."&name=".$titulo_card."&desc=".$desc_card."&idList=".$idList."";

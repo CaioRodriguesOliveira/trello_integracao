@@ -577,6 +577,87 @@ function descricao_qualidade_refidelizacao($dados) {
     return $desc_card;
 }
 
+function descricao_qualidade_csat_voz($dados){
+    $contrato = $dados['contrato'];
+    $atendimento = $dados['dados_busca'];
+    echo '<pre>';print_r($dados);
 
+    $desc_card = '';
+
+    if ($contrato['tipo_tecnologia'] == 'R') {
+        $contrato['tipo_tecnologia'] = 'Rádio';
+    } elseif ($contrato['tipo_tecnologia'] == 'F') {
+        $contrato['tipo_tecnologia'] = 'Fibra';
+    } else {
+        $contrato['tipo_tecnologia'] = 'LTE 4G';
+    }
+
+    // Cria descrição do card
+
+    $desc_card = '';
+    $desc_card .= '%0A** ------------------------------- Informações do Cliente -------------------------------**%0A';
+
+    $desc_card .= '**- Dados do Cliente -**%0A';
+    $desc_card .= '%0A**Telefone de Contato**: ';
+
+    foreach($dados['dados_telefone'] as $telefone){
+        if(count($dados['dados_telefone']) > 1){
+            $desc_card .= $telefone['num_telefone'].' - ';
+        }else{
+        $desc_card .= $telefone;
+        }
+    }
+    
+    if($contrato['flg_email_validado'] == 'S'){
+        $email_validado = 'Email Validado';
+    }else{
+        $email_validado = 'Email não Validado';
+    }
+
+    if($contrato['nom_email'] == '') {
+        $contrato['nom_email'] = 'Não informado';
+    }
+    
+    $desc_card .= '%0A**Cliente**: '.$contrato['nom_cliente'];
+    $desc_card .= '%0A**Email**: '.$contrato['nom_email'].' - '.$email_validado;
+    $desc_card .= '%0A';
+    $desc_card .= '%0A**- Dados do Contrato -**%0A';
+    $desc_card .= '%0A**Contrato**: '.$contrato['han_contrato'];
+    $desc_card .= '%0A**Franquia**: '.$contrato['han_franquia']. ' - '.$contrato['nom_franquia'];
+    $desc_card .= '%0A**Plano**: '.$contrato['nom_plano'];
+    $desc_card .= '%0A**Data Primeira Instalação**: '.date('d/m/Y', strtotime($contrato['dat_primeira_instalacao']));
+    $desc_card .= '%0A**Endereço de Instalação**: '.$contrato['endereco_inst'];
+    $desc_card .= '%0A**Valor Plano**: R$ '.$contrato['valor_total'];
+    $desc_card .= '%0A';
+
+    $desc_card .= '%0A**- Dados Técnicos -**%0A';
+    $desc_card .= '%0A**Tipo de Tecnologia**: '.$contrato['tipo_tecnologia'];
+    $desc_card .= '%0A**MAC Equipamento**: '.$contrato['num_mac_id'];
+    $desc_card .= '%0A**MAC Roteador**: '.$contrato['num_mac_roteador'];
+    $desc_card .= '%0A**Modelo Roteador**: '.$contrato['modelo_roteador'];
+    $desc_card .= '%0A';
+
+    $desc_card .= '%0A** ------------------------------- Atendimento Avaliado -------------------------------**%0A';
+
+    $desc_card .= '%0A**Avaliação da Ligação**: '.$dados['nota'];
+    $desc_card .= '%0A';
+
+    $desc_card .= '%0A**Protocolo**: '.$atendimento['protocolo'];
+    $desc_card .= '%0A**Data de Fechamento**: '.date('d/m/Y H:i:s',strtotime($atendimento['dat_fechamento']));
+    $desc_card .= '%0A**Tipo de Atendimento**: '.$atendimento['nom_tipo'];
+    $desc_card .= '%0A**Sistema de Origem**: '.$atendimento['sistema_origem'];
+    $desc_card .= '%0A**Descrição do Atendimento**: '.$atendimento['dsc_atendimento'];
+    $desc_card .= '%0A';
+    $desc_card .= '%0A**-------------------------------------------------------**%0A';
+    $desc_card .= '%0A';
+            
+        
+        $desc_card = urlencode($desc_card);
+        $desc_card = str_replace('%250A', '%0A', $desc_card);
+        
+        
+        return $desc_card;
+        
+}
 
 ?>
