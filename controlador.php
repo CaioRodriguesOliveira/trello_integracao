@@ -46,7 +46,7 @@ function descricao_qualidade_os($dados) {
     $desc_card .= '%0A**Contrato**: '.$contrato['han_contrato'];
     $desc_card .= '%0A**Franquia**: '.$contrato['han_franquia']. ' - '.$contrato['nom_franquia'];
     $desc_card .= '%0A**Plano**: '.$contrato['nom_plano'];
-    $desc_card .= '%0A**Data Primeira Instalação**: '.date('d/m/Y', strtotime($contrato['dat_fim_execucao']));
+    $desc_card .= '%0A**Data Primeira Instalação**: '.date('d/m/Y', strtotime($contrato['dat_primeira_instalacao']));
     $desc_card .= '%0A**Endereço de Instalação**: '.$contrato['endereco_inst'];
     $desc_card .= '%0A**Valor Plano**: R$ '.$contrato['valor_total'];
     $desc_card .= '%0A';
@@ -76,7 +76,7 @@ function descricao_qualidade_os($dados) {
                 $os['flg_prioridade'] = 'Não informado';
         }
         $desc_card .= '%0A**OS**: '.$os['handle'];
-        $desc_card .= '%0A**Data de Abertura**: '.$os['dat_abertura'];
+        $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y', strtotime($os['dat_abertura']));
         $desc_card .= '%0A**Tipo de Chamado**: '.$os['nom_tipo_chamado'];
         $desc_card .= '%0A**Técnico Responsável**: '.$os['tecnico'];
         $desc_card .= '%0A**Status**: '.$os['status'];
@@ -185,7 +185,7 @@ function descricao_qualidade_instalacao($dados) {
     return $desc_card;
 }
 
-function descricao_qualidade_csat($dados) {
+function descricao_qualidade_percepcao($dados) {
     $contrato = $dados['contrato'];
 
     $desc_card = '';
@@ -265,7 +265,7 @@ function descricao_qualidade_csat($dados) {
         $desc_card .= '%0A';
 
         $desc_card .= '%0A**Protocolo**: '.$atendimento['protocolo'];
-        $desc_card .= '%0A**Data de Fechamento**: '.$atendimento['dat_fechamento'];
+        $desc_card .= '%0A**Data de Fechamento**: '.date('d/m/Y', strtotime($atendimento['dat_fechamento']));
         $desc_card .= '%0A**Tipo de Atendimento**: '.$atendimento['nom_tipo'];
         $desc_card .= '%0A**Sistema de Origem**: '.$atendimento['sistema_origem'];
         $desc_card .= '%0A**Descrição do Atendimento**: '.$atendimento['dsc_atendimento'];
@@ -344,7 +344,7 @@ function descricao_qualidade_nps($dados) {
                     $os['flg_prioridade'] = 'Não informado';
             }
             $desc_card .= '%0A**OS**: '.$os['handle'];
-            $desc_card .= '%0A**Data de Abertura**: '.$os['dat_abertura'];
+            $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y', strtotime($os['dat_abertura']));
             $desc_card .= '%0A**Tipo de Chamado**: '.$os['nom_tipo_chamado'];
             $desc_card .= '%0A**Técnico Responsável**: '.$os['tecnico'];
             $desc_card .= '%0A**Status**: '.$os['status'];
@@ -359,7 +359,7 @@ function descricao_qualidade_nps($dados) {
                 $desc_card .= '%0A';
     
                 $desc_card .= '%0A**Protocolo**: '.$atendimento['protocolo'];
-                $desc_card .= '%0A**Data de Fechamento**: '.$atendimento['dat_fechamento'];
+                $desc_card .= '%0A**Data de Fechamento**: '.date('d/m/Y H:i:s',strtotime($atendimento['dat_fechamento']));
                 $desc_card .= '%0A**Tipo de Atendimento**: '.$atendimento['nom_tipo'];
                 $desc_card .= '%0A**Sistema de Origem**: '.$atendimento['sistema_origem'];
                 $desc_card .= '%0A**Descrição do Atendimento**: '.$atendimento['dsc_atendimento'];
@@ -467,7 +467,7 @@ function descricao_monitora_atendimentos($dados) {
                 $os['flg_prioridade'] = 'Não informado';
         }
         $desc_card .= '%0A**OS**: '.$os['handle'];
-        $desc_card .= '%0A**Data de Abertura**: '.$os['dat_abertura'];
+        $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y', strtotime($os['dat_abertura']));
         $desc_card .= '%0A**Tipo de Chamado**: '.$os['nom_tipo_chamado'];
         $desc_card .= '%0A**Técnico Responsável**: '.$os['tecnico'];
         $desc_card .= '%0A**Status**: '.$os['status'];
@@ -484,6 +484,7 @@ function descricao_monitora_atendimentos($dados) {
 
     
 }
+
 function descricao_qualidade_refidelizacao($dados) {
     //echo '<pre>';print_r($dados);
     
@@ -558,7 +559,7 @@ function descricao_qualidade_refidelizacao($dados) {
                 $os['flg_prioridade'] = 'Não informado';
         }
         $desc_card .= '%0A**OS**: '.$os['handle'];
-        $desc_card .= '%0A**Data de Abertura**: '.$os['dat_abertura'];
+        $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y', strtotime($os['dat_abertura']));
         $desc_card .= '%0A**Tipo de Chamado**: '.$os['nom_tipo_chamado'];
         $desc_card .= '%0A**Técnico Responsável**: '.$os['tecnico'];
         $desc_card .= '%0A**Status**: '.$os['status'];

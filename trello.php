@@ -11,10 +11,15 @@ function adiciona_card($dados,$key,$token,$idList,$setor) {
             $titulo_card = urlencode($dados['contrato']['nom_cliente']. ' - Franquia: '. $dados['han_franquia'].' - Qnt OS Abertas: '.$dados['num_chamados']);
             $desc_card = descricao_qualidade_os($dados);
             break;
-        case 'qualidade_csat':
+        case 'qualidade_percepcao':
             //echo'<pre>';print_r($dados);
             $titulo_card = urlencode($dados['contrato']['nom_cliente']. ' - Franquia: '. $dados['contrato']['han_franquia']);
-            $desc_card = descricao_qualidade_csat($dados);
+            $desc_card = descricao_qualidade_percepcao($dados);
+            break;
+        case 'qualidade_percepcao_2':
+            //echo'<pre>';print_r($dados);
+            $titulo_card = urlencode($dados['contrato']['nom_cliente']. ' - Franquia: '. $dados['contrato']['han_franquia']);
+            $desc_card = descricao_qualidade_percepcao($dados);
             break;
         case 'qualidade_nps_chamado':
             $titulo_card = urlencode($dados['contrato']['nom_cliente']. ' - ' .$dados['nome_informado']);

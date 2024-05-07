@@ -3,13 +3,12 @@ include('database.php');
 include('trello.php');
 
 
-$busca_csat = busca_csat();
+$busca_csat = busca_avaliacao_percepcao();
 print_r($busca_csat);
 
+
 if (!empty($busca_csat)) {
-    $setor = 'qualidade_csat';
-    $autenticacao = autenticacao($setor);
-    while ($row = $busca_csat->fetch_assoc()) {
+    while ($row = $busca_csat->fetch_assoc()) {   
     
         $dados['handle'] = $row['handle'];
         $dados['han_cliente'] = $row['han_cliente'];
@@ -36,6 +35,11 @@ if (!empty($busca_csat)) {
         $dados['dados_telefone'] = busca_telefones($dados['han_cliente']);
         $dados['contrato'] = busca_cliente($dados['han_cliente']);
         $dados['atendimentos'] = busca_atendimentos($dados['han_cliente'], 5);
+        if ($dados['avaliacao_csat'] == 'Insatisfeito') {
+            $setor = 'qualidade_percepcao_2';
+        } else 
+            $setor = 'qualidade_percepcao';
+            $autenticacao = autenticacao($setor);
         //echo '<pre>';print_r($dados);
         adiciona_card($dados, $autenticacao['chave'], $autenticacao['token'], $autenticacao['id_lista'],$setor);
 

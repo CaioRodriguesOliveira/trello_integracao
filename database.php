@@ -178,33 +178,36 @@ function busca_monitora_atendimento() {
 function busca_monitora_os() {
         include('conexao.php');
         $sql = "SELECT 
-                LPAD(han_franquia, 2, '0') AS han_franquia, 
-                han_cliente, 
-                han_contrato, 
-                COUNT(handle) AS num_chamados, 
-                DATE(MIN(dat_abertura)) mais_antiga, 
-                DATE(MAX(dat_abertura)) mais_recente, 
-                ROUND(AVG(DATEDIFF(CURDATE(), dat_abertura)),1) media_dias 
-                FROM 
-                cad_chamado
-                WHERE 
-                dat_abertura >= DATE_SUB(CURDATE(), INTERVAL 60 DAY)
-                AND han_chamado_tipo NOT IN (33,42,38,9,60,45,31,29,57,36,35,34,46,54,39, 1,25,29,30,32,50,55)
-                AND status_chamado(handle) != 'CANCELADO'
-                AND han_contrato IS NOT NULL
-                GROUP BY 
-                han_contrato, han_cliente 
-                HAVING 
-                num_chamados >= 2 
-                ORDER BY 
-                han_franquia, han_cliente;";
+        LPAD(han_franquia, 2, '0') AS han_franquia, 
+        han_cliente, 
+        han_contrato, 
+        COUNT(handle) AS num_chamados, 
+        DATE(MIN(dat_abertura)) mais_antiga, 
+        DATE(MAX(dat_abertura)) mais_recente, 
+        ROUND(AVG(DATEDIFF(CURDATE(), dat_abertura)),1) media_dias 
+    FROM 
+        cad_chamado
+    WHERE 
+        DATE(dat_abertura) BETWEEN DATE_SUB(CURDATE(), INTERVAL 60 DAY) AND CURDATE() - INTERVAL 1 day
+        AND han_chamado_tipo NOT IN (33,42,38,9,60,45,31,29,57,36,35,34,46,54,39, 1,25,29,30,32,50,55)
+        AND dat_cancelamento IS NULL 
+        AND han_contrato IS NOT NULL
+        
+    GROUP BY 
+        han_contrato, han_cliente 
+    HAVING 
+        num_chamados >= 2
+        AND mais_recente = CURDATE() - INTERVAL 1 day
+    
+    ORDER BY 
+        han_franquia, han_cliente;";
         
         $result = $conn->query($sql);
 
         return $result;
 }
 
-function busca_csat() {
+function busca_avaliacao_percepcao() {
         include('conexao.php');
 
         $sql = "SELECT * 
