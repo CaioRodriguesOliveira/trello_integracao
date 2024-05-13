@@ -33,35 +33,50 @@ if (!empty($busca_instalacao)) {
         adiciona_card($dados, $autenticacao['chave'], $autenticacao['token'], $autenticacao['id_lista'],$setor);
     }
 }
-/*
-$busca_monitora_os = busca_monitora_os();
 
-if (!empty($busca_monitora_os)) {
-    $setor = 'teste_monitora_os';
-    $autenticacao = autenticacao($setor);
-    $ultimo_han_cliente = null; 
+function busca_instalacao() {
+    include('conexao.php');
+    //echo "<br>sucedida!";
     
-    while ($row1 = $busca_monitora_os->fetch_assoc()) {
 
-        if ($row1['han_cliente'] != $ultimo_han_cliente) {
-            
-            $dados_monitoramento['han_cliente'] = $row1['han_cliente'];
-            $dados_monitoramento['han_contrato'] = $row1['han_contrato'];
-            $dados_monitoramento['han_franquia'] = $row1['han_franquia'];
-            $dados_monitoramento['num_chamados'] = $row1['num_chamados'];
-            $dados_monitoramento['mais_antiga'] = $row1['mais_antiga'];
-            $dados_monitoramento['mais_recente'] = $row1['mais_recente'];
-            $dados_monitoramento['media_dias'] = $row1['media_dias'];
-            $dados_monitoramento['dados_telefone'] = busca_telefones($dados_monitoramento['han_cliente']);
-            $dados_monitoramento['dados_os'] = busca_os($dados_monitoramento['han_cliente'], $dados_monitoramento['num_chamados']);
-            $dados_monitoramento['contrato'] = busca_cliente($dados_monitoramento['han_cliente']);
-            adiciona_card($dados_monitoramento, $autenticacao['chave'], $autenticacao['token'], $autenticacao['id_lista'],$setor);
+    $sql = "SELECT
+            cc.handle AS han_chamado,
+            ctt.han_cliente,
+            cli.handle AS han_cliente,
+            cli.nom_cliente,
+            cli.flg_email_validado,
+            cli.nom_email,
+            LPAD(fra.handle, 2, '0') AS han_franquia,
+            cc.han_contrato,
+            pla.nom_plano,
+            fra.nom_sigla,
+            ctt.num_mac_roteador,
+            ce.nom_modelo AS modelo_roteador,
+            fra.nom_franquia,
+            pla.tipo_tecnologia,
+            CONCAT(end.nom_tipo_logradouro, ' ',end.nom_logradouro, ', ', ctt.num_endereco_entrega, ' - ', end.nom_bairro) as endereco_inst,
+            ctt.dat_primeira_instalacao,
+            if(ctt.val_plano_scm + ctt.val_plano_sva>0,ctt.val_plano_scm + ctt.val_plano_sva, pla.val_plano_scm + pla.val_plano_sva ) + ctt.val_acrescimo - if(ctt.dat_vencimento_desconto<CURDATE() OR ctt.dat_vencimento_desconto IS NULL,0,ctt.val_desconto) AS valor_total,
+            cc.dat_fim_execucao,
+            ctt.num_mac_id
 
-            $ultimo_han_cliente = $row1['han_cliente'];
-        }
-        
-    }
+    FROM ipinfo.cad_chamado cc
+    LEFT JOIN ipinfo.cad_contratos ctt ON ctt.handle = cc.han_contrato
+    LEFT JOIN ipinfo.cad_cliente cli ON cli.handle = ctt.han_cliente
+    LEFT JOIN ipinfo.cad_franquia fra ON fra.handle = cli.han_franquia
+    LEFT JOIN ipinfo.cad_plano pla ON pla.handle = ctt.han_plano
+    LEFT JOIN ipinfo.cad_enderecos end ON end.handle = ctt.han_endereco_entrega
+    LEFT JOIN ipinfo.cad_roteador cr ON cr.num_mac = ctt.num_mac_roteador
+    LEFT JOIN ipinfo.cad_equipamento ce ON ce.handle = cr.han_equipamento
+    WHERE cc.han_chamado_tipo IN (9)
+    AND date(ctt.dat_primeira_instalacao) = CURDATE() - INTERVAL 1 DAY;";
+
+    $result = $conn->query($sql);
+
+
+    return $result;
+
+    //print_r($result);
 }
 
-*/
 ?>

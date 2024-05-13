@@ -45,4 +45,18 @@ if (!empty($busca_csat)) {
 
     }
 }
+
+function busca_avaliacao_percepcao() {
+    include('conexao.php');
+
+    $sql = "SELECT * 
+            FROM callcenter.cad_atendimentos ca
+            WHERE ca.avaliacao_csat <= 2
+            AND ca.dat_fechamento between date_add(NOW(), INTERVAL - 6 minute) AND date_add(NOW(), INTERVAL - 1 MINUTE);";
+
+    $result = $conn->query($sql);
+
+    return $result;
+}
+
 ?>

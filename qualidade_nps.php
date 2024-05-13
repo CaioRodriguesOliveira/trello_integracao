@@ -59,4 +59,40 @@ $busca_nps = busca_nps();
         }
     }
 
+    function busca_nps() {
+        include('conexao.php');
+        $sql = 'SELECT 
+        p.data,
+        IF(p.pesquisa = 3, "Atendimento", "OS") AS tipo,
+        c.han_franquia AS franquia,
+        f.nom_franquia,
+        p.nome AS nome_informado,
+        c.nom_cliente AS nome_cliente,
+        p.email,
+        p.fone,
+        p.nota, 
+        p.motivo,  
+        IF(p.pesquisa = 3, atend.handle, chama.handle) AS handle,
+        IF(p.pesquisa = 3, atend.han_usuario, chama.han_usuario_tecnico) AS usuario,
+        au.nom_usuario AS nome_usuario,
+        SUBSTRING(p.id, 8, 7) + 0 AS han_cliente  
+    FROM cad_cliente c
+    INNER JOIN pesquisa_nps_rel p ON c.handle = SUBSTRING(p.id, 8, 7)
+    LEFT JOIN callcenter.cad_atendimentos atend ON SUBSTRING(p.id, 1, 7) = atend.handle AND p.pesquisa = 3 
+    LEFT JOIN cad_chamado chama ON SUBSTRING(p.id, 1, 7) = chama.handle AND p.pesquisa = 2 
+    LEFT JOIN cad_franquia f ON c.han_franquia = f.handle
+    LEFT JOIN adm_usuarios au ON IF(p.pesquisa = 3, atend.han_usuario, chama.han_usuario_tecnico) = au.handle
+    WHERE 
+        p.data BETWEEN DATE_ADD(NOW(), INTERVAL - 6 MINUTE) AND DATE_ADD(NOW(), INTERVAL 1 MINUTE)
+        AND p.nota <= 2;
+    ';
+
+        $result = $conn->query($sql);
+
+        //print_r($result);
+
+        return $result;
+
+}
+
 ?>
