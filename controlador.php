@@ -308,9 +308,9 @@ function descricao_qualidade_nps($dados) {
         $contrato['nom_email'] = 'Não informado';
     }
     
-    $desc_card .= '%0A**Cliente**: '.$contrato['nom_cliente'];
+    $desc_card .= '%0A**Cliente**: '.$dados['nome_cliente'];
     $desc_card .= '%0A**Email**: '.$contrato['nom_email'];
-    $desc_card .= '%0A**Franquia: '.$contrato['han_franquia']. ' - '.$contrato['nom_franquia'];
+    $desc_card .= '%0A**Franquia**: '.$dados['franquia']. ' - '.$dados['nom_franquia'];
     $desc_card .= '%0A';
 
     $desc_card .= '%0A**- Dados do Contato -**%0A';
