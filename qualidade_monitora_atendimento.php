@@ -49,14 +49,14 @@ function busca_monitora_atendimento() {
     FROM 
         callcenter.cad_atendimentos
     WHERE 
-        DATE(dat_fechamento) BETWEEN DATE_SUB(CURDATE(), INTERVAL 60 DAY) AND CURDATE() - INTERVAL 1 day
+        DATE(dat_fechamento) BETWEEN DATE_SUB(CURDATE(), INTERVAL 90 DAY) AND CURDATE() - INTERVAL 0 day
         AND num_contrato IS NOT NULL
         
     GROUP BY 
         num_contrato, han_cliente 
     HAVING 
-        num_chamados >= 2
-        AND mais_recente = CURDATE() - INTERVAL 1 day
+        num_atendimentos >= 2
+        AND mais_recente = CURDATE() - INTERVAL 0 day
 
     ORDER BY 
         han_cliente;";
