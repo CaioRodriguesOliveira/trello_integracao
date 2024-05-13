@@ -22,6 +22,15 @@ if (!empty($busca_monitora_atendimento)) {
         $dados['dados_os'] = busca_os($dados['han_cliente'], 5);
         $dados['contrato'] = busca_cliente($dados['han_cliente']);
         //echo '<pre>';print_r($dados);
+        if($dados['num_atendimentos'] = 2 ) {
+            $autenticacao['id_lista'] = '66354227fb75813723ea0b2d';
+        } elseif($dados['num_atendimentos'] > 2 && $dados['num_atendimentos'] <= 5) {
+            $autenticacao['id_lista'] = '663e0c1ca0ca931526f676c5';
+        } elseif($dados['num_atendimentos'] > 5 && $dados['num_atendimentos'] <= 9) { 
+            $autenticacao['id_lista'] = '6641f6f953c0040c764d3eb9';
+        } else {
+            $autenticacao['id_lista'] = '6641f704bf6b08ed116931f9';
+        }
         
         //echo '<pre>';print_r($autenticacao);die();
         adiciona_card($dados, $autenticacao['chave'], $autenticacao['token'], $autenticacao['id_lista'],$setor);
