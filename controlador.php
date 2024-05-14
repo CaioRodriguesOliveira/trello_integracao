@@ -76,7 +76,7 @@ function descricao_qualidade_os($dados) {
                 $os['flg_prioridade'] = 'Não informado';
         }
         $desc_card .= '%0A**OS**: '.$os['handle'];
-        $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y', strtotime($os['dat_abertura']));
+        $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y H:i:s', strtotime($os['dat_abertura']));
         $desc_card .= '%0A**Tipo de Chamado**: '.$os['nom_tipo_chamado'];
         $desc_card .= '%0A**Técnico Responsável**: '.$os['tecnico'];
         $desc_card .= '%0A**Status**: '.$os['status'];
@@ -166,7 +166,7 @@ function descricao_qualidade_instalacao($dados) {
                 $os['flg_prioridade'] = 'Não informado';
         }
         $desc_card .= '%0A**OS**: '.$os['handle'];
-        $desc_card .= '%0A**Data de Abertura**: '.$os['dat_abertura'];
+        $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y H:i:s', strtotime($os['dat_abertura']));
         $desc_card .= '%0A**Tipo de Chamado**: '.$os['nom_tipo_chamado'];
         $desc_card .= '%0A**Técnico Responsável**: '.$os['tecnico'];
         $desc_card .= '%0A**Status**: '.$os['status'];
@@ -344,7 +344,7 @@ function descricao_qualidade_nps($dados) {
                     $os['flg_prioridade'] = 'Não informado';
             
             $desc_card .= '%0A**OS**: '.$os['handle'];
-            $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y', strtotime($os['dat_abertura']));
+            $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y H:i:s', strtotime($os['dat_abertura']));
             $desc_card .= '%0A**Tipo de Chamado**: '.$os['nom_tipo_chamado'];
             $desc_card .= '%0A**Técnico Responsável**: '.$os['tecnico'];
             $desc_card .= '%0A**Status**: '.$os['status'];
@@ -558,7 +558,7 @@ function descricao_qualidade_refidelizacao($dados) {
                 $os['flg_prioridade'] = 'Não informado';
         }
         $desc_card .= '%0A**OS**: '.$os['handle'];
-        $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y', strtotime($os['dat_abertura']));
+        $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y H:i:s', strtotime($os['dat_abertura']));
         $desc_card .= '%0A**Tipo de Chamado**: '.$os['nom_tipo_chamado'];
         $desc_card .= '%0A**Técnico Responsável**: '.$os['tecnico'];
         $desc_card .= '%0A**Status**: '.$os['status'];
