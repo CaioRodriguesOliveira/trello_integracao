@@ -42,6 +42,7 @@ $busca_nps = busca_nps();
             $dados['han_cliente'] = $row['han_cliente'];
             $dados['email'] = $row['email'];
             #$autenticacao = autenticacao('qualidade_nps_chamado');
+            $dados['data_atual'] = date('d/m/Y H:i:s', strtotime($dados['data']));
 			
 			if ($dados['tipo'] == 'OS') {
 				

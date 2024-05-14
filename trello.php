@@ -16,18 +16,18 @@ function adiciona_card($dados,$key,$token,$idList,$setor) {
             $titulo_card = urlencode($dados['contrato']['nom_cliente']. ' - Franquia: '. $dados['contrato']['han_franquia']);
             $desc_card = descricao_qualidade_percepcao($dados);
             break;
-        case 'qualidade_percepcao_2':
+        case 'callcenter_percepcao':
             //echo'<pre>';print_r($dados);
             $titulo_card = urlencode($dados['contrato']['nom_cliente']. ' - Franquia: '. $dados['contrato']['han_franquia']);
             $desc_card = descricao_qualidade_percepcao($dados);
             break;
         case 'qualidade_nps_chamado':
-            $titulo_card = urlencode($dados['nome_cliente']. ' - ' .$dados['nome_informado']);
+            $titulo_card = urlencode($dados['data_atual'].' - '.$dados['nome_cliente']. ' - ' .$dados['nome_informado']);
             $desc_card = descricao_qualidade_nps($dados);
             //echo '<pre>';print_r($dados);
             break;
         case 'qualidade_nps_atendimento':
-            $titulo_card = urlencode($dados['nome_cliente']. ' - ' .$dados['nome_informado']);
+            $titulo_card = urlencode($dados['data_atual'].' - '.$dados['nome_cliente']. ' - ' .$dados['nome_informado']);
             $desc_card = descricao_qualidade_nps($dados);
             //echo '<pre>';print_r($dados);
             break;

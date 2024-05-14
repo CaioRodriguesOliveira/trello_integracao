@@ -22,7 +22,7 @@ if (!empty($busca_percepcao)) {
         if ($dados['avaliacao_csat'] == '1') {
             $dados['avaliacao_csat'] = 'Muito Insatisfeito';
         } elseif ($dados['avaliacao_csat'] == '2') {
-            $dados['avaliacao_csat'] = 'Insatisfeito';
+            $dados['avaliacao_csat'] = 'Necessita Acompanhamento';
         } elseif ($dados['avaliacao_csat'] == '3') {
             $dados['avaliacao_csat'] = 'Neutro';
         } elseif ($dados['avaliacao_csat'] == '4') {
@@ -35,8 +35,9 @@ if (!empty($busca_percepcao)) {
         $dados['dados_telefone'] = busca_telefones($dados['han_cliente']);
         $dados['contrato'] = busca_cliente($dados['han_cliente']);
         $dados['atendimentos'] = busca_atendimentos($dados['han_cliente'], 5);
-        if ($dados['avaliacao_csat'] == 'Insatisfeito') {
-            $setor = 'qualidade_percepcao_2';
+        if ($dados['avaliacao_csat'] == 'Necessita Acompanhamento') {
+            $setor = 'callcenter_percepcao';
+            $autenticacao = autenticacao($setor);
         } else 
             $setor = 'qualidade_percepcao';
             $autenticacao = autenticacao($setor);

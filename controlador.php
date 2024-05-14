@@ -249,7 +249,7 @@ function descricao_qualidade_percepcao($dados) {
     if ($atendimento['avaliacao_csat'] == '1') {
         $atendimento['avaliacao_csat'] = 'Muito Insatisfeito';
     } elseif ($atendimento['avaliacao_csat'] == '2') {
-        $atendimento['avaliacao_csat'] = 'Insatisfeito';
+        $atendimento['avaliacao_csat'] = 'Necessita Acompanhamento';
     } elseif ($atendimento['avaliacao_csat'] == '3') {
         $atendimento['avaliacao_csat'] = 'Neutro';
     } elseif ($atendimento['avaliacao_csat'] == '4') {
@@ -327,7 +327,7 @@ function descricao_qualidade_nps($dados) {
     $desc_card .= '%0A';
 
     if($dados['tipo'] == 'OS'){
-        foreach($dados['dados_busca'] as $os) {
+            $os = $dados['dados_busca'];
             $desc_card .= '%0A** ------------------------------------ OS Avaliada ----------------------------------------**%0A';
             // [1] Baixa, [2] Normal, [3] Alta, [4] Extrema, [5] Dedicado
             if ($os['flg_prioridade'] == 1) {
@@ -342,7 +342,7 @@ function descricao_qualidade_nps($dados) {
                     $os['flg_prioridade'] = 'Dedicado';
                 } else {
                     $os['flg_prioridade'] = 'Não informado';
-            }
+            
             $desc_card .= '%0A**OS**: '.$os['handle'];
             $desc_card .= '%0A**Data de Abertura**: '.date('d/m/Y', strtotime($os['dat_abertura']));
             $desc_card .= '%0A**Tipo de Chamado**: '.$os['nom_tipo_chamado'];
@@ -354,20 +354,19 @@ function descricao_qualidade_nps($dados) {
             
         }
     }else{
-        foreach($dados['dados_busca'] as $atendimento) {
-                $desc_card .= '%0A** ------------------------------- Atendimento Avaliado -------------------------------**%0A';
-                $desc_card .= '%0A';
-    
-                $desc_card .= '%0A**Protocolo**: '.$atendimento['protocolo'];
-                $desc_card .= '%0A**Data de Fechamento**: '.date('d/m/Y H:i:s',strtotime($atendimento['dat_fechamento']));
-                $desc_card .= '%0A**Tipo de Atendimento**: '.$atendimento['nom_tipo'];
-                $desc_card .= '%0A**Sistema de Origem**: '.$atendimento['sistema_origem'];
-                $desc_card .= '%0A**Descrição do Atendimento**: '.$atendimento['dsc_atendimento'];
-                $desc_card .= '%0A';
-                $desc_card .= '%0A**-------------------------------------------------------**%0A';
-                $desc_card .= '%0A';
+            $atendimento = $dados['dados_busca'];
+            $desc_card .= '%0A** ------------------------------- Atendimento Avaliado -------------------------------**%0A';
+            $desc_card .= '%0A';
+            $desc_card .= '%0A**Protocolo**: '.$atendimento['protocolo'];
+            $desc_card .= '%0A**Data de Fechamento**: '.date('d/m/Y H:i:s',strtotime($atendimento['dat_fechamento']));
+            $desc_card .= '%0A**Tipo de Atendimento**: '.$atendimento['nom_tipo'];
+            $desc_card .= '%0A**Sistema de Origem**: '.$atendimento['sistema_origem'];
+            $desc_card .= '%0A**Descrição do Atendimento**: '.$atendimento['dsc_atendimento'];
+            $desc_card .= '%0A';
+            $desc_card .= '%0A**-------------------------------------------------------**%0A';
+            $desc_card .= '%0A';
                 
-            }
+            
     }
 
 
