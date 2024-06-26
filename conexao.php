@@ -5,10 +5,10 @@ $conexao = 'LAB';
 
 if ($conexao == 'LAB') {
     // Configurações de conexão com o LABORATÓRIO
-    $servername = "18.231.159.63";
-    $username = "alex";
-    $password = "Axg@dgs12T";
-    $database = "ipinfo";
+    $servername = "";
+    $username = "";
+    $password = "";
+    $database = "";
 
 }
 
